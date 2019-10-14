@@ -7,7 +7,7 @@
   <groupId>com.lkral.webapp</groupId>
   <artifactId>redhat_interview</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   <name>redhat_interview Maven Webapp</name>
   <url>http://www.example.com</url>
@@ -34,6 +34,12 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
       <version>3.4.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.21.Final</version>
     </dependency>
   </dependencies>
 
@@ -65,7 +71,7 @@
           <version>2.22.1</version>
         </plugin>
         <plugin>
-          <artifactId>maven-war-plugin</artifactId>
+          <artifactId>maven-jar-plugin</artifactId>
           <version>3.2.2</version>
         </plugin>
         <plugin>
