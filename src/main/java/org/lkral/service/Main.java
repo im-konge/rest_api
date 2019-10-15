@@ -1,3 +1,9 @@
+/**
+ * Creating simple rest-api that catches "curl" and return some response.
+ * In general - if you curl json object with message, it will return proper response.
+ * In other situation it will return error as json object (?!)
+ */
+
 package org.lkral.service;
 
 import io.vertx.core.Vertx;
@@ -9,7 +15,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.AbstractVerticle;
 
-public class Main extends AbstractVerticle{
+public class Main extends AbstractVerticle {
 
     @Override
     public void start() {
@@ -19,8 +25,9 @@ public class Main extends AbstractVerticle{
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
         router.route(HttpMethod.POST, "/")
-                .produces("application/json")
+                .produces("application/json")//this is for catching json - in other case it will return error
                 .handler(rc -> {
+                    //creating handler for returning proper response
                     HttpServerResponse response = rc.response();
                     JsonObject json = rc.getBodyAsJson();
 
@@ -43,10 +50,11 @@ public class Main extends AbstractVerticle{
                             response.setStatusMessage("Can’t handle this request!");
                             break;
                     }
+                    //returning response as text in console
                     response.end("Message: " + json.getString("message") + "\nStatus code:" + response.getStatusCode() + "\nReturn message:" + response.getStatusMessage() + "\n");
                 })
                 .failureHandler(err -> {
-
+                    //error handling
                     final JsonObject json = new JsonObject()
                             .put("timestamp", System.nanoTime())
                             .put("status", err.statusCode())
@@ -56,6 +64,7 @@ public class Main extends AbstractVerticle{
                 });
 
         httpServer
+                //httpServer setup
                 .requestHandler(router::accept)
                 .listen(4242);
 
