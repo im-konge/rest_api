@@ -10,8 +10,11 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.AbstractVerticle;
 
 public class Main extends AbstractVerticle{
-    public static void main(String[] args) {
+
+    @Override
+    public void start() {
         Vertx vertx = Vertx.vertx();
+
         HttpServer httpServer = vertx.createHttpServer();
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
