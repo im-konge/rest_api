@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redhat-interview
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: interview-app
+      run: redhat-interview
+  template:
+    metadata:
+      labels:
+        app: interview-app
+        run: redhat-interview
+    spec:
+      containers:
+      - name: redhat-interview-container
+        image: redhat-interview
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 4242
